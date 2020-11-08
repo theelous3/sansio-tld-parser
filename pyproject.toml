@@ -5,7 +5,9 @@ description="Parse tlds from domains."
 readme="README.md"
 license="MIT"
 authors = ["theelous3 (Mark Jameson) <theegrandmaster@gmail.com>"]
-
+dependencies = [
+    "attrs"
+]
 
 keywords=["sansio", "tld", "parser"]
 classifiers=[
