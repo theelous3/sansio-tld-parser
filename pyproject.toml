@@ -1,0 +1,42 @@
+[project]
+name="tld-parser"
+version="1.0.0"
+description="Parse tlds from domains."
+readme="README.md"
+license="MIT"
+authors = ["theelous3 (Mark Jameson) <theegrandmaster@gmail.com>"]
+
+
+keywords=["sansio", "tld", "parser"]
+classifiers=[
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Communications :: Email",
+    "Programming Language :: Python :: 3"
+]
+requires-python= ">=3.5"
+
+[project.optional-dependencies]
+test = [
+  "pytest"
+]
+
+
+[project.urls]
+homepage="https://github.com/theelous3/sansio-tld-parser"
+
+[tool.poetry]
+name = "tld-parser"
+version = "1.0.0"
+description = "Parse tlds from domains."
+authors = ["theelous3 <theegrandmaster@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
