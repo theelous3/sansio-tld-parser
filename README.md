@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/theelous3/sansio-tld-parser.svg?branch=master)](https://travis-ci.org/github/theelous3/sansio-tld-parser/branches)
+
+
 ### A sansio tld parser.
 
 Given a tld rule list and a domain, parse the tld from the domain.
