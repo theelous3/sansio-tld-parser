@@ -44,3 +44,10 @@ Result(registrable_part='some_subdomain.domain', tld='co.uk')
 ```
 
 And out pops a `Result` object :)
+
+
+#### Breaking changelog
+
+* Raise `TLDParserError` on error parse fail, rather than returning `None`, lol.
+Raises `NoRegisterablePart` when the TLD is valid but the domain given was just a TLD.
+Raises `NoTLDMatch` when no TLD could be found.

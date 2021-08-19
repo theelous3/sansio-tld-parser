@@ -1,6 +1,6 @@
 [project]
 name="tld-parser"
-version="1.0.0"
+version="2.0.0"
 description="Parse tlds from domains."
 readme="README.md"
 license="MIT"
@@ -36,6 +36,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+attrs = "^21.2.0"
 
 [tool.poetry.dev-dependencies]
 

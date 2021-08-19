@@ -9,6 +9,8 @@ from typing import Tuple, Sequence, Union
 
 import attr
 
+from tld_parser.errors import NoTLDMatch, NoRegisterablePart
+
 
 @attr.s(slots=True, frozen=True, eq=True)
 class Result:
@@ -63,16 +65,13 @@ def parse_domain(tlds: Tuple[str], domain: str) -> Result:
         raise ValueError("No domain given.")
 
     domain = domain.casefold()
-    domain = domain.split(".")
-    domain_labels_count = len(domain)
-    domain.reverse()
-
-    if domain_labels_count == 1:
-        return None
+    domain_ = domain.split(".")
+    domain_labels_count = len(domain_)
+    domain_.reverse()
 
     matches = []
     for rule in tlds:
-        side_by_side = zip(domain, rule)
+        side_by_side = zip(domain_, rule)
         for domain_label, rule_label in side_by_side:
             if domain_label != rule_label and rule_label != "*":
                 break
@@ -80,19 +79,27 @@ def parse_domain(tlds: Tuple[str], domain: str) -> Result:
             matches.append(rule)
 
     if not matches:
-        return None
+        raise NoTLDMatch(f"Could not parse {domain}")
 
     # longest match wins
     matches.sort(key=len, reverse=True)
-    prevailing_rule = matches[0]
+
+    filtered_matches = []
+
+    for match in matches:
+        if all((part in domain_ or part == "*") for part in match):
+            filtered_matches.append(match)
+
+    prevailing_rule = filtered_matches[0]
 
     # unreverse and join for output
-    tld = [label for _, label in zip(prevailing_rule, domain)]
+    tld = [label for _, label in zip(prevailing_rule, domain_)]
     tld = ".".join(reversed(tld))
-    registrable_part = domain[len(prevailing_rule) :]
+    registrable_part = domain_[len(prevailing_rule) :]
+
 
     if not registrable_part:
-        return None
+        raise NoRegisterablePart(f"Domain is equivalent to TLD: {domain}")
 
     registrable_part = ".".join(reversed(registrable_part))
     return Result(tld=tld, registrable_part=registrable_part)
